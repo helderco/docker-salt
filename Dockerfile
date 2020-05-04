@@ -2,12 +2,13 @@ FROM debian:buster
 LABEL maintainer=helder
 
 RUN apt-get update \
- && apt-get install wget gnupg ca-certificates --no-install-recommends -y \
+ && apt-get install wget gnupg2 ca-certificates --no-install-recommends -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-RUN wget -O - https://repo.saltstack.com/py3/debian/10/amd64/latest/SALTSTACK-GPG-KEY.pub | apt-key add - \
- && echo 'deb http://repo.saltstack.com/py3/debian/10/amd64/latest buster main' >> /etc/apt/sources.list.d/saltstack.list \
+ARG RELEASE=latest
+RUN wget -O - https://repo.saltstack.com/py3/debian/10/amd64/${RELEASE}/SALTSTACK-GPG-KEY.pub | apt-key add - \
+ && echo "deb http://repo.saltstack.com/py3/debian/10/amd64/${RELEASE} buster main" >> /etc/apt/sources.list.d/saltstack.list \
  && apt-get update \
  && apt-get install -y salt-master \
  && apt-get autoremove \
