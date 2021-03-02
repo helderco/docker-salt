@@ -6,7 +6,7 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
-ARG RELEASE=3002.2
+ARG RELEASE=3002.5
 RUN wget -O - https://repo.saltstack.com/py3/debian/10/amd64/archive/${RELEASE}/SALTSTACK-GPG-KEY.pub | apt-key add - \
  && echo "deb http://repo.saltstack.com/py3/debian/10/amd64/archive/${RELEASE} buster main" >> /etc/apt/sources.list.d/saltstack.list \
  && apt-get update \
